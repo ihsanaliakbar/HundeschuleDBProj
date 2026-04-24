@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+dist/
+*.egg-info/
+.eggs/
+*.egg
+venv/
+.venv/
+env/
+.env
+
+# PyInstaller
+*.spec
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# Project generated files
+hundeschule.db
+Anmeldeformular_Hundeschule.pdf
+Anmeldung_*.pdf
+Teilnahmeliste_*.csv
+importiert/
