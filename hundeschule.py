@@ -141,12 +141,20 @@ def cmd_import():
                       f"(Kein Kurs ausgewählt)")
                 continue
 
-            # In Datenbank eintragen
+            # In Datenbank eintragen – vorhandenen Halter wiederverwenden
             cur.execute(
-                "INSERT INTO Hundehalter (vorname, nachname) VALUES (?, ?)",
+                "SELECT id FROM Hundehalter WHERE vorname = ? AND nachname = ?",
                 (vorname, nachname)
             )
-            halter_id = cur.lastrowid
+            halter_row = cur.fetchone()
+            if halter_row:
+                halter_id = halter_row[0]
+            else:
+                cur.execute(
+                    "INSERT INTO Hundehalter (vorname, nachname) VALUES (?, ?)",
+                    (vorname, nachname)
+                )
+                halter_id = cur.lastrowid
 
             cur.execute(
                 "INSERT INTO Hunde (name, rasse, halter_id) VALUES (?, ?, ?)",
