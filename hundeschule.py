@@ -142,8 +142,12 @@ def cmd_import():
                 continue
 
             # In Datenbank eintragen – vorhandenen Halter wiederverwenden
+            vorname  = vorname.strip()
+            nachname = nachname.strip()
             cur.execute(
-                "SELECT id FROM Hundehalter WHERE vorname = ? AND nachname = ?",
+                "SELECT id FROM Hundehalter "
+                "WHERE LOWER(TRIM(vorname)) = LOWER(?) "
+                "  AND LOWER(TRIM(nachname)) = LOWER(?)",
                 (vorname, nachname)
             )
             halter_row = cur.fetchone()
