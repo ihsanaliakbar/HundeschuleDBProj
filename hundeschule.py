@@ -13,15 +13,15 @@ import csv
 import shutil
 from pypdf import PdfReader
 
-# ── Projektbeteiligte ──────────────────────────────────────────────────────────
+# Projektbeteiligte
 PROJECT_MEMBERS = ["Muhammad Akbar", "Ahmed Hassan"]
 
-# ── Konstanten ─────────────────────────────────────────────────────────────────
+# Konstanten
 DB_NAME    = "hundeschule.db"
 KURSE      = ["Welpenkurs", "Junghundekurs", "Agility", "Obedience", "Mantrailing"]
 IMPORT_DIR = "importiert"
 
-# ── Datenbank ──────────────────────────────────────────────────────────────────
+# Datenbank
 
 def init_db():
     """Erstellt die Datenbank und alle Tabellen (3. Normalform), falls nötig."""
@@ -64,7 +64,7 @@ def init_db():
     conn.close()
 
 
-# ── Hilfsfunktionen ────────────────────────────────────────────────────────────
+# Hilfsfunktionen
 
 def get_field_value(fields: dict, key: str) -> str:
     """Liest den Wert eines AcroForm-Feldes sicher aus."""
@@ -88,7 +88,7 @@ def is_checkbox_checked(fields: dict, key: str) -> bool:
     return val in ("yes", "on", "true", "1", "checked")
 
 
-# ── Befehle ────────────────────────────────────────────────────────────────────
+# Befehle
 
 def cmd_names():
     """Gibt die Namen aller Projektbeteiligten aus."""
@@ -220,7 +220,7 @@ def cmd_export():
     conn.close()
 
 
-# ── Einstiegspunkt ─────────────────────────────────────────────────────────────
+# Einstiegspunkt
 
 def main():
     if len(sys.argv) != 2:
