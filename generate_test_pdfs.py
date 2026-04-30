@@ -33,12 +33,28 @@ TEST_DATA = [
         "kurse":       ["kurs_agility", "kurs_mantrailing", "kurs_obedience"],
     },
     {
-        # Unvollständiges Formular (kein Kurs) → soll fehlschlagen
+        # Ein Hundehalter hat zwei Hunde, soll beide Anmeldungen erfolgreich importieren, aber nur einen Eintrag in Hundehalter erzeugen
+        "vorname":     "Peter",
+        "nachname":    "Hoffmann",
+        "hund_name":   "Choco",
+        "hund_rasse":  "Pudel",
+        "kurse":       ["kurs_welpenkurs", "kurs_obedience"],
+    },
+    {
+        # Unvollständiges Formular (kein Kurs), soll fehlschlagen
         "vorname":     "Anna",
         "nachname":    "Meier",
         "hund_name":   "Fluffy",
         "hund_rasse":  "Pudel",
         "kurse":       [],
+    },
+    {
+        # Nicht alle Pflichtfelder ausgefüllt, soll fehlschlagen
+        "vorname":     "",
+        "nachname":    "Meier",
+        "hund_name":   "Fluffy",
+        "hund_rasse":  "Pudel",
+        "kurse":       ["kurs_obedience"],
     },
 ]
 
