@@ -49,12 +49,36 @@ TEST_DATA = [
         "kurse":       [],
     },
     {
-        # Nicht alle Pflichtfelder ausgefüllt, soll fehlschlagen
+        # Vorname fehlt, soll fehlschlagen
         "vorname":     "",
         "nachname":    "Meier",
         "hund_name":   "Fluffy",
         "hund_rasse":  "Pudel",
         "kurse":       ["kurs_obedience"],
+    },
+    {
+        # Nachname fehlt, soll fehlschlagen
+        "vorname":     "Anna",
+        "nachname":    "",
+        "hund_name":   "Fluffy",
+        "hund_rasse":  "Pudel",
+        "kurse":       ["kurs_obedience"],
+    },
+    {
+        # Hundename fehlt, soll fehlschlagen
+        "vorname":     "Lukas",
+        "nachname":    "Weber",
+        "hund_name":   "",
+        "hund_rasse":  "Beagle",
+        "kurse":       ["kurs_welpenkurs"],
+    },
+    {
+        # Hunderasse fehlt, soll fehlschlagen
+        "vorname":     "Lukas",
+        "nachname":    "Weber",
+        "hund_name":   "Snoopy",
+        "hund_rasse":  "",
+        "kurse":       ["kurs_welpenkurs"],
     },
 ]
 
