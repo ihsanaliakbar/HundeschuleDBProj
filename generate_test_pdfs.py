@@ -80,6 +80,33 @@ TEST_DATA = [
         "hund_rasse":  "",
         "kurse":       ["kurs_welpenkurs"],
     },
+    {
+        # Gleicher Halter wie "Peter Hoffmann", aber in Großbuchstaben mit
+        # Leerzeichen – soll wegen case-insensitive TRIM-Suche denselben
+        # Hundehalter wiederverwenden, kein neuer Eintrag in Hundehalter
+        "vorname":     "  PETER  ",
+        "nachname":    "hoffmann",
+        "hund_name":   "Balu",
+        "hund_rasse":  "Berner Sennenhund",
+        "kurse":       ["kurs_obedience"],
+    },
+    {
+        # Umlaute in Namen, soll erfolgreich importieren
+        "vorname":     "Jürgen",
+        "nachname":    "Müller-Schäfer",
+        "hund_name":   "Wölfchen",
+        "hund_rasse":  "Großspitz",
+        "kurse":       ["kurs_mantrailing"],
+    },
+    {
+        # Alle Kurse gleichzeitig gewählt, soll erfolgreich importieren
+        "vorname":     "Sabine",
+        "nachname":    "Krüger",
+        "hund_name":   "Maxi",
+        "hund_rasse":  "Border Collie",
+        "kurse":       ["kurs_welpenkurs", "kurs_junghundekurs",
+                        "kurs_agility", "kurs_obedience", "kurs_mantrailing"],
+    },
 ]
 
 
