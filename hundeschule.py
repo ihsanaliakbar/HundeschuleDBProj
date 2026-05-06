@@ -160,11 +160,25 @@ def cmd_import():
                 )
                 halter_id = cur.lastrowid
 
+            # Vorhandenen Hund desselben Halters wiederverwenden
+            hund_name  = hund_name.strip()
+            hund_rasse = hund_rasse.strip()
             cur.execute(
-                "INSERT INTO Hunde (name, rasse, halter_id) VALUES (?, ?, ?)",
-                (hund_name, hund_rasse, halter_id)
+                "SELECT id FROM Hunde "
+                "WHERE halter_id = ? "
+                "  AND LOWER(TRIM(name))  = LOWER(?) "
+                "  AND LOWER(TRIM(rasse)) = LOWER(?)",
+                (halter_id, hund_name, hund_rasse)
             )
-            hund_id = cur.lastrowid
+            hund_row = cur.fetchone()
+            if hund_row:
+                hund_id = hund_row[0]
+            else:
+                cur.execute(
+                    "INSERT INTO Hunde (name, rasse, halter_id) VALUES (?, ?, ?)",
+                    (hund_name, hund_rasse, halter_id)
+                )
+                hund_id = cur.lastrowid
 
             for kurs in selected_kurse:
                 cur.execute("SELECT id FROM Kurse WHERE name = ?", (kurs,))

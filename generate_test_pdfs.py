@@ -91,6 +91,17 @@ TEST_DATA = [
         "kurse":       ["kurs_obedience"],
     },
     {
+        # Gleicher Halter UND gleicher Hund (Name+Rasse) wie "Klaus Becker"
+        # mit "Bello/Labrador" – Hund soll wiederverwendet werden, kein neuer
+        # Eintrag in Hunde, nur die zusätzlichen Kurse werden eingetragen
+        # (Mantrailing neu, Agility ist bereits angemeldet -> Duplikat ignoriert)
+        "vorname":     "klaus",
+        "nachname":    "  Becker ",
+        "hund_name":   "BELLO",
+        "hund_rasse":  "labrador",
+        "kurse":       ["kurs_mantrailing", "kurs_agility"],
+    },
+    {
         # Umlaute in Namen, soll erfolgreich importieren
         "vorname":     "Jürgen",
         "nachname":    "Müller-Schäfer",
