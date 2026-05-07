@@ -34,7 +34,8 @@ hundeschule_projekt/
 ├── generate_test_pdfs.py     ← Erstellt ausgefüllte Test-PDFs
 ├── requirements.txt
 ├── README.md
-└── hundeschule.db            ← wird automatisch erstellt
+├── hundeschule.db            ← wird automatisch erstellt
+└── importiert/               ← wird beim Import automatisch angelegt
 ```
 
 ---
@@ -58,7 +59,8 @@ Hundehalter (id PK, vorname, nachname)
      │
      └─► Hunde (id PK, name, rasse, halter_id FK)
                │
-               └─► Anmeldungen (id PK, hund_id FK, kurs_id FK)
+               └─► Anmeldungen (id PK, hund_id FK, kurs_id FK,
+                                UNIQUE(hund_id, kurs_id))
                                                         │
                                         Kurse (id PK, name UNIQUE)
 ```
@@ -82,16 +84,26 @@ python create_form.py
 ### 2. Test-PDFs generieren (optional)
 ```bash
 python generate_test_pdfs.py
-# → Anmeldung_1.pdf, Anmeldung_2.pdf, Anmeldung_3.pdf, Anmeldung_4.pdf
+# → Anmeldung_1.pdf … Anmeldung_13.pdf
 ```
+Die Test-Daten decken u. a. folgende Szenarien ab:
+- erfolgreiche Anmeldungen mit mehreren Kursen
+- ein Halter mit zwei verschiedenen Hunden
+- jeweils einzeln fehlende Pflichtfelder (Vorname, Nachname, Hundename, Rasse)
+- kein Kurs ausgewählt
+- gleicher Halter / gleicher Hund in unterschiedlicher Schreibweise
+  (Großbuchstaben, Leerzeichen) → Wiederverwendung
+- Umlaute in Namen
+- Anmeldung zu allen Kursen gleichzeitig
 
 ### 3. Importieren
 ```bash
 python hundeschule.py /imp
 # Anmeldung_1.pdf erfolgreich importiert!
 # Anmeldung_2.pdf erfolgreich importiert!
-# Anmeldung_3.pdf erfolgreich importiert!
-# Anmeldung_4.pdf nicht erfolgreich importiert! (Kein Kurs ausgewählt)
+# ...
+# Anmeldung_5.pdf nicht erfolgreich importiert! (Kein Kurs ausgewählt)
+# Anmeldung_6.pdf nicht erfolgreich importiert! (Unvollständige Pflichtangaben)
 ```
 Importierte Dateien werden in den Ordner `importiert/` verschoben.
 
@@ -131,12 +143,14 @@ Klaus;Becker;Bello;Labrador
 ```
 
 Encoding: UTF-8 mit BOM (kompatibel zu Excel)
+Sortierung: nach Nachname, dann Vorname.
 
 ---
 
 ## Fehlerfälle
 
 - **Fehlerhafter Aufruf** → Meldung + Hilfetext
-- **Unvollständiges Formular** → nicht importiert, Meldung
+- **Keine Formularfelder im PDF** → nicht importiert, Meldung
+- **Unvollständige Pflichtangaben** → nicht importiert, Meldung
 - **Kein Kurs gewählt** → nicht importiert, Meldung
-- **Beschädigte PDF** → nicht importiert, Fehlermeldung
+- **Beschädigte PDF / sonstiger Fehler** → nicht importiert, Fehlermeldung
